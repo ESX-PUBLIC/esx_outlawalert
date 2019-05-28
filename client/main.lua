@@ -30,9 +30,9 @@ AddEventHandler('esx:setJob', function(job)
 end)
 
 RegisterNetEvent('esx_outlawalert:outlawNotify')
-AddEventHandler('esx_outlawalert:outlawNotify', function(alert)
+AddEventHandler('esx_outlawalert:outlawNotify', function(alert, streetName)
 	if isPlayerWhitelisted then
-		ESX.ShowNotification(alert)
+		ESX.ShowAdvancedNotification('Centrale', '~b~Appel d\'urgence: 911~s~', '~b~Localisation : ~s~' .. streetName .. '\n~b~Infos : ~s~' .. alert, 'CHAR_CALL911', 1)
 	end
 end)
 
