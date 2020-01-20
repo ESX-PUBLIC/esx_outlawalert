@@ -169,6 +169,16 @@ Citizen.CreateThread(function()
 	end
 end)
 
+function BlackListCheck(playerPed)
+	for i=1,#Config.WeaponBlacklist do
+		local weaponHash = GetHashKey(Config.WeaponBlacklist[i])
+		if GetSelectedPedWeapon(playerPed) == weaponHash then
+			return false -- Is a blacklisted weapon
+		end
+	end
+	return true -- Is not a blacklisted weapon
+end
+
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
@@ -216,7 +226,7 @@ Citizen.CreateThread(function()
 				}, streetName, playerGender)
 			end
 
-		elseif IsPedShooting(playerPed) and not IsPedCurrentWeaponSilenced(playerPed) and Config.GunshotAlert then
+		elseif IsPedShooting(playerPed) and not IsPedCurrentWeaponSilenced(playerPed) and Config.GunshotAlert and BlackListCheck(playerPed) then
 
 			Citizen.Wait(3000)
 
